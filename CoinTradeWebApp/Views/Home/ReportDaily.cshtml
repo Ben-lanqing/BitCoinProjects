@@ -1,0 +1,71 @@
+﻿@model List<CoinTradeWebApp.DB.report>
+@{
+    ViewData["Title"] = "ReportDaily";
+}
+<div>
+    <ul>
+        <li style="float:left;margin: 10px"><a asp-area="" asp-controller="Home" asp-action="Details" asp-route-user="@ViewBag.user">Details</a></listyle="float:left">
+        <li style="float:left;margin: 10px"><a asp-area="" asp-controller="Home" asp-action="Index" asp-route-user="@ViewBag.user">分钟</a></li>
+        <li style="float:left;margin: 10px"><a asp-area="" asp-controller="Home" asp-action="ReportHours" asp-route-user="@ViewBag.user">日报</a></li>
+        <li style="float:left;margin: 10px"><a asp-area="" asp-controller="Home" asp-action="ReportDaily" asp-route-user="@ViewBag.user">周报</a></li>
+    </ul>
+</div>
+<p></p>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <tr>
+            <th>
+            </th>
+            <th>
+                date
+            </th>
+            <th>
+                NetFund
+            </th>
+            <th>
+                NetEarn
+            </th>
+            <th>
+                OpenPrice
+            </th>
+            <th>
+                Ticker
+            </th>
+            @*<th>
+                    RateYear
+                </th>*@
+            <th>
+                TEarn
+            </th>
+            <th>
+                HDeal
+            </th>
+            <th>
+                HReset
+            </th>
+
+        </tr>
+        @if (Model.Count != 0)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.ActionLink("Details", "Details", "Home", new { user = ViewBag.user, reportId = item.id }, new { })</td>
+                    <td>@item.date.Remove(12, 2)</td>
+                    <td style="font-weight:bold;font-size:large">@item.NetFund?.ToString("0.00")</td>
+                    <td style="font-weight:bold;font-size:large">@((item.NetFund - item.OpenFund)?.ToString("0.000"))</td>
+                    <td>@item.OpenPrice</td>
+                    <td>@item.TickerPrice</td>
+                    @*<td>@item.RateYear?.ToString("0.00")</td>*@
+                    <td>@item.Earn?.ToString("0.000")</td>
+                    <td>@item.HDealCount</td>
+                    <td>@item.HResetCount</td>
+
+
+                </tr>
+            }
+
+        }
+    </table>
+</div>
+

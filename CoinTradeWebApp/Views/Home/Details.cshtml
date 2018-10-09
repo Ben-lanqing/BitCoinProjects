@@ -1,0 +1,140 @@
+﻿@model CoinTradeWebApp.DB.report
+
+<h4>@ViewBag.Title  @ViewBag.time</h4>
+<div>
+    <ul>
+        <li style="float:left;margin: 10px"><a asp-area="" asp-controller="Home" asp-action="Details" asp-route-user="@ViewBag.user">Details</a></listyle="float:left">
+        <li style="float:left;margin: 10px"><a asp-area="" asp-controller="Home" asp-action="Index" asp-route-user="@ViewBag.user">分钟</a></li>
+        <li style="float:left;margin: 10px"><a asp-area="" asp-controller="Home" asp-action="ReportHours" asp-route-user="@ViewBag.user">日报</a></li>
+        <li style="float:left;margin: 10px"><a asp-area="" asp-controller="Home" asp-action="ReportDaily" asp-route-user="@ViewBag.user">周报</a></li>
+    </ul>
+</div>
+<p></p>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <tbody>
+            <tr>
+                <td>运行时间</td>
+                <td>@Html.DisplayFor(model => model.runningTime)</td>
+                <td>起始时间</td>
+                <td>@Html.DisplayFor(model => model.Open_Time)</td>
+            </tr>
+            <tr>
+                <td style="font-weight:bold;font-size:large">当前资产</td>
+                <td style="font-weight:bold;font-size:large">@Html.DisplayFor(model => model.NetFund)</td>
+                <td>开盘资产</td>
+                <td>@Html.DisplayFor(model => model.OpenFund)</td>
+            </tr>
+            <tr>
+                <td>当前价格</td>
+                <td>@Html.DisplayFor(model => model.TickerPrice)</td>
+                <td>开盘价格</td>
+                <td>@Html.DisplayFor(model => model.OpenPrice)</td>
+            </tr>
+            @*<tr>
+                    <td style="font-weight:bold;font-size:large">总盈利</td>
+                    <td style="font-weight:bold;font-size:large">@Html.DisplayFor(model => model.total_Earn)</td>
+                    <td style="font-weight:bold;font-size:large">总盈利率</td>
+                    <td style="font-weight:bold;font-size:large">@Html.DisplayFor(model => model.total_Earn_Rate_Daily)%</td>
+                </tr>
+                <tr>
+                    <td>24H盈利</td>
+                    <td>@Html.DisplayFor(model => model.Earn24H)</td>
+                    <td>24H盈利率</td>
+                    <td>@Html.DisplayFor(model => model.Earn24H_Rate)%</td>
+                </tr>
+                <tr>
+                    <td>本日盈利</td>
+                    <td>@Html.DisplayFor(model => model.todayEarn)</td>
+                    <td>本日盈利率</td>
+                    <td>@Html.DisplayFor(model => model.todayEarn_Rate)%</td>
+                </tr>
+                <tr>
+                    <td>小时盈利</td>
+                    <td>@Html.DisplayFor(model => model.hour_realearn)</td>
+                    <td>小时盈利率</td>
+                    <td>@Html.DisplayFor(model => model.hour_rate_daily)%</td>
+                </tr>*@
+
+
+
+        </tbody>
+    </table>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr><th><th> 总盈利<th> 盈利率 <th> 交易 <th> 价格
+        <tbody>
+            <tr>
+                <td>总盈利</td>
+                <td style="font-weight:bold;font-size:large">@((Model.NetFund - Model.OpenFund)?.ToString("0.000"))</td>
+                <td style="font-weight:bold;font-size:large">@Html.DisplayFor(model => model.RateYear)%</td>
+                <td>@Model.Earn?.ToString("#0.000")</td>
+                <td>@((Model.NetFund - Model.OpenFund - Model.Earn)?.ToString("0.000"))</td>
+            </tr>
+            @*<tr>
+                    <td>24小时</td>
+                    <td>@Html.DisplayFor(model => model.HDealCount)</td>
+                    <td>@Html.DisplayFor(model => model.HResetCount)</td>
+                    <td>@Html.DisplayFor(model => model.)</td>
+                    <td>@ViewBag.TEarn_24H.ToString("#0.00")</td>
+                </tr>
+                <tr>
+                    <td>本日</td>
+                    <td>@Html.DisplayFor(model => model.DealCount)</td>
+                    <td>@Html.DisplayFor(model => model.ResetCount)</td>
+                    <td>@Html.DisplayFor(model => model.price_earn_today)</td>
+                    <td>@ViewBag.TEarn_today.ToString("#0.00")</td>
+                </tr>*@
+
+        </tbody>
+    </table>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <tbody>
+            <tr>
+                <td>当前价格</td>
+                <td>@Html.DisplayFor(model => model.TickerPrice)</td>
+                <td>成交振幅</td>
+                <td>@Html.DisplayFor(model => model.SpanPrice)</td>
+
+            </tr>
+            <tr>
+                <td>单笔交易量</td>
+                <td>@Model.TradeQty</td>
+                <td>当前包数</td>
+                <td>@Model.OrderQty</td>
+
+            </tr>
+            @*<tr>
+                    <td>当前买单数</td>
+                    <td>@ViewBag.buycount</td>
+                    <td>当前卖单数</td>
+                    <td>@ViewBag.sellcount</td>
+                </tr>*@
+            <tr>
+                <td>振荡次数</td>
+                <td>@Model.DealCount</td>
+                <td>平仓次数</td>
+                <td>@Model.ResetCount</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.type)小时振荡</td>
+                <td>@Model.HDealCount</td>
+                <td>@Html.DisplayFor(model => model.type)小时平仓</td>
+                <td>@Model.HResetCount</td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+<div>
+    @Html.Raw(Model.LogOrders)
+</div>
+@*<p>--------------------------------</p>
+    <div>
+        @Html.Raw(Model.DBOrdersInfo)
+    </div>*@
